@@ -1,570 +1,597 @@
 <!DOCTYPE html>
-<html lang="es">
+< lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="App Tramos Troncal - Rosario">
-    <meta name="theme-color" content="#2196F3">
-    <title>Tramos KMS Rosario</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-         :root {
-            --primary: #2196F3;
-            --primary-dark: #1976D2;
-            --secondary: #4CAF50;
-            --danger: #f44336;
-            --warning: #ff9800;
-            --text: #333;
-            --light-bg: #f5f5f5;
-            --white: #ffffff;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            --radius: 8px;
-        }
-        
-        html,
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text);
-            height: 100%;
-        }
-        
-        body {
-            display: flex;
-            overflow: hidden;
-        }
-        
-        .container {
-            display: flex;
-            width: 100%;
-            height: 100vh;
-        }
-        
-        .sidebar {
-            width: 200px;
-            background: var(--primary);
-            color: var(--white);
-            padding: 20px 10px;
-            overflow-y: auto;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .menu-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-        
-        .menu-btn {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: var(--white);
-            cursor: pointer;
-            border-radius: var(--radius);
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-        
-        .menu-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(4px);
-        }
-        
-        .menu-btn.active {
-            background: var(--white);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .menu-btn:last-child {
-            margin-top: auto;
-            background: var(--danger);
-        }
-        
-        .menu-btn:last-child:hover {
-            background: #d32f2f;
-        }
-        
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 30px;
-        }
-        
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="App Tramos Troncal - Rosario">
+        <meta name="theme-color" content="#0a2463">
+        <title>Tramos KMS Rosario</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
-            to {
-                opacity: 1;
+            
+             :root {
+                --black: #111111;
+                --primary: #0a2463;
+                /* azul oscuro principal */
+                --primary-dark: #020b2b;
+                /* azul más oscuro */
+                --accent-red: #9b1b30;
+                /* rojo sangre */
+                --secondary: #4CAF50;
+                --danger: #c1121f;
+                /* rojo intenso */
+                --warning: #ff9800;
+                --text: #1f2933;
+                /* gris muy oscuro */
+                --light-bg: #f3f4f6;
+                /* gris claro fondo general */
+                --panel-bg: #ffffff;
+                /* paneles */
+                --border-gray: #cbd2d9;
+                /* bordes y líneas */
+                --white: #ffffff;
+                --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                --radius: 8px;
             }
-        }
-        
-        .page-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: var(--primary);
-        }
-        
-        .section {
-            background: var(--white);
-            padding: 25px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 14px;
-            color: var(--text);
-        }
-        
-        select,
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: var(--radius);
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-        
-        select:focus,
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            min-width: 120px;
-            justify-content: center;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-        }
-        
-        .btn-secondary {
-            background: var(--secondary);
-            color: var(--white);
-        }
-        
-        .btn-secondary:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-        }
-        
-        .btn-warning {
-            background: var(--warning);
-            color: var(--white);
-        }
-        
-        .btn-warning:hover {
-            background: #e68900;
-        }
-        
-        .btn-danger {
-            background: var(--danger);
-            color: var(--white);
-        }
-        
-        .btn-danger:hover {
-            background: #d32f2f;
-        }
-        
-        .btn-sm {
-            padding: 8px 12px;
-            font-size: 12px;
-            flex: none;
-            min-width: auto;
-        }
-        
-        .route-list {
-            list-style: none;
-        }
-        
-        .route-item {
-            background: var(--light-bg);
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: var(--radius);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .route-item-info {
-            flex: 1;
-        }
-        
-        .route-item-city {
-            font-weight: 600;
-            color: var(--primary);
-        }
-        
-        .route-item-kms {
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
-        }
-        
-        .route-controls {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .summary-card {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            padding: 25px;
-            border-radius: var(--radius);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
-        }
-        
-        .summary-item {
-            margin-bottom: 15px;
-        }
-        
-        .summary-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-        }
-        
-        .summary-value {
-            font-size: 32px;
-            font-weight: 700;
-            margin-top: 5px;
-        }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .result-card {
-            background: var(--light-bg);
-            padding: 15px;
-            border-radius: var(--radius);
-            border-top: 3px solid var(--secondary);
-        }
-        
-        .result-label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        
-        .result-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .alert {
-            padding: 15px;
-            border-radius: var(--radius);
-            margin-bottom: 20px;
-            border-left: 4px solid;
-        }
-        
-        .alert-info {
-            background: #e3f2fd;
-            border-left-color: var(--primary);
-            color: #1565c0;
-        }
-        
-        .alert-success {
-            background: #e8f5e9;
-            border-left-color: var(--secondary);
-            color: #2e7d32;
-        }
-        
-        .alert-warning {
-            background: #fff3e0;
-            border-left-color: var(--warning);
-            color: #e65100;
-        }
-        
-        .alert-danger {
-            background: #ffebee;
-            border-left-color: var(--danger);
-            color: #c62828;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
+            
+            html,
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: linear-gradient(to bottom, #020b2b 0%, #0a2463 35%, #f3f4f6 100%);
+                color: var(--text);
+                height: 100%;
             }
-            .sidebar {
-                width: 100%;
+            
+            body {
                 display: flex;
-                gap: 5px;
-                padding: 10px;
-                height: auto;
-                overflow-x: auto;
+                overflow: hidden;
             }
+            
+            .container {
+                display: flex;
+                width: 100%;
+                height: 100vh;
+            }
+            
+            .sidebar {
+                width: 200px;
+                background: linear-gradient(to bottom, #020b2b 0%, #0a2463 60%, #1b2a4a 100%);
+                color: var(--white);
+                padding: 20px 10px;
+                overflow-y: auto;
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.35);
+                border-right: 2px solid #000000;
+            }
+            
             .menu-title {
-                display: none;
+                font-size: 16px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 20px;
+                opacity: 0.9;
+                text-align: center;
             }
+            
             .menu-btn {
-                flex: 1;
-                min-width: 100px;
-                margin-bottom: 0;
-                padding: 10px 12px;
-                font-size: 12px;
+                width: 100%;
+                padding: 14px 16px;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(0, 0, 0, 0.35);
+                color: var(--white);
+                cursor: pointer;
+                border-radius: var(--radius);
+                margin-bottom: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+                text-align: left;
             }
+            
+            .menu-btn:hover {
+                background: rgba(255, 255, 255, 0.16);
+                transform: translateX(3px);
+            }
+            
+            .menu-btn.active {
+                background: #f3f4f6;
+                color: var(--primary);
+                border-color: #000000;
+                font-weight: 600;
+            }
+            
+            .menu-btn:last-child {
+                margin-top: auto;
+                background: var(--danger);
+                border-color: #000000;
+            }
+            
+            .menu-btn:last-child:hover {
+                background: #780a12;
+            }
+            
             .content {
-                padding: 15px;
+                flex: 1;
+                overflow-y: auto;
+                padding: 30px;
+                background: linear-gradient(to bottom, #f3f4f6 0%, #ffffff 40%, #f3f4f6 100%);
             }
+            
+            .page {
+                display: none;
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .page.active {
+                display: block;
+            }
+            
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            
             .page-title {
-                font-size: 22px;
+                font-size: 28px;
+                font-weight: 700;
+                margin-bottom: 30px;
+                color: var(--black);
+                text-align: center;
+            }
+            
+            .section {
+                background: var(--panel-bg);
+                padding: 25px;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+                margin-bottom: 20px;
+                border: 1px solid var(--border-gray);
+            }
+            
+            .section-title {
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 20px;
+                color: var(--primary);
+                border-bottom: 2px solid var(--accent-red);
+                padding-bottom: 10px;
+            }
+            
+            .form-group {
                 margin-bottom: 20px;
             }
-            .section {
-                padding: 15px;
+            
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                color: var(--text);
             }
+            
+            select,
+            input {
+                width: 100%;
+                padding: 12px;
+                border: 2px solid var(--border-gray);
+                border-radius: var(--radius);
+                font-size: 14px;
+                font-family: inherit;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                background-color: #ffffff;
+            }
+            
+            select:focus,
+            input:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 2px rgba(10, 36, 99, 0.15);
+            }
+            
             .button-group {
-                flex-direction: column;
+                display: flex;
+                gap: 10px;
+                margin-top: 25px;
+                flex-wrap: wrap;
             }
+            
             .btn {
+                padding: 12px 24px;
+                border: none;
+                border-radius: var(--radius);
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+            }
+            
+            .btn-primary {
+                background: var(--primary);
+                color: var(--white);
+                border: 1px solid #000000;
+            }
+            
+            .btn-primary:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            }
+            
+            .btn-secondary {
+                background: var(--secondary);
+                color: var(--white);
+                border: 1px solid #000000;
+            }
+            
+            .btn-secondary:hover {
+                background: #45a049;
+                transform: translateY(-2px);
+            }
+            
+            .btn-warning {
+                background: var(--warning);
+                color: var(--white);
+                border: 1px solid #000000;
+            }
+            
+            .btn-warning:hover {
+                background: #e68900;
+            }
+            
+            .btn-danger {
+                background: var(--danger);
+                color: var(--white);
+                border: 1px solid #000000;
+            }
+            
+            .btn-danger:hover {
+                background: #780a12;
+            }
+            
+            .btn-sm {
+                padding: 8px 12px;
+                font-size: 12px;
+                flex: none;
+                min-width: auto;
+            }
+            
+            .route-list {
+                list-style: none;
+            }
+            
+            .route-item {
+                background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: var(--radius);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: 1px solid var(--border-gray);
+                border-left: 4px solid var(--accent-red);
+            }
+            
+            .route-item-info {
                 flex: 1;
             }
-            .results-grid {
-                grid-template-columns: 1fr;
+            
+            .route-item-city {
+                font-weight: 600;
+                color: var(--primary);
             }
-        }
-    </style>
-</head>
+            
+            .route-item-kms {
+                font-size: 12px;
+                color: #666666;
+                margin-top: 4px;
+            }
+            
+            .route-controls {
+                display: flex;
+                gap: 5px;
+            }
+            
+            .checkbox-group {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .checkbox-group input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+            
+            .summary-card {
+                background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent-red));
+                color: var(--white);
+                padding: 25px;
+                border-radius: var(--radius);
+                margin-bottom: 20px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+                border: 1px solid #000000;
+            }
+            
+            .summary-item {
+                margin-bottom: 15px;
+            }
+            
+            .summary-label {
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                opacity: 0.9;
+            }
+            
+            .summary-value {
+                font-size: 32px;
+                font-weight: 700;
+                margin-top: 5px;
+            }
+            
+            .results-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                margin-top: 20px;
+            }
+            
+            .result-card {
+                background: linear-gradient(to bottom, #f9fafb 0%, #e5e7eb 100%);
+                padding: 15px;
+                border-radius: var(--radius);
+                border: 1px solid var(--border-gray);
+                border-top: 3px solid var(--secondary);
+            }
+            
+            .result-label {
+                font-size: 12px;
+                color: #666666;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+            }
+            
+            .result-value {
+                font-size: 24px;
+                font-weight: 700;
+                color: var(--primary);
+            }
+            
+            .alert {
+                padding: 15px;
+                border-radius: var(--radius);
+                margin-bottom: 20px;
+                border-left: 4px solid;
+                border: 1px solid var(--border-gray);
+            }
+            
+            .alert-info {
+                background: #e5f0ff;
+                border-left-color: var(--primary);
+                color: #142b6f;
+            }
+            
+            .alert-success {
+                background: #e8f5e9;
+                border-left-color: var(--secondary);
+                color: #2e7d32;
+            }
+            
+            .alert-warning {
+                background: #fff3e0;
+                border-left-color: var(--warning);
+                color: #e65100;
+            }
+            
+            .alert-danger {
+                background: #fde2e4;
+                border-left-color: var(--danger);
+                color: #8b000f;
+            }
+            
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                }
+                .sidebar {
+                    width: 100%;
+                    display: flex;
+                    gap: 5px;
+                    padding: 10px;
+                    height: auto;
+                    overflow-x: auto;
+                }
+                .menu-title {
+                    display: none;
+                }
+                .menu-btn {
+                    flex: 1;
+                    min-width: 100px;
+                    margin-bottom: 0;
+                    padding: 10px 12px;
+                    font-size: 12px;
+                }
+                .content {
+                    padding: 15px;
+                }
+                .page-title {
+                    font-size: 22px;
+                    margin-bottom: 20px;
+                }
+                .section {
+                    padding: 15px;
+                }
+                .button-group {
+                    flex-direction: column;
+                }
+                .btn {
+                    flex: 1;
+                }
+                .results-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
 
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="menu-title">CEVA LOGISTICS</div>
-            <button class="menu-btn active" onclick="showPage('create')">✏️ Crear Tramo</button>
-            <button class="menu-btn" onclick="showPage('calculate')">📊 Calcular Tramo</button>
-            <button class="menu-btn" onclick="showPage('modify')">🔧 Modificar Tramo</button>
-            <button class="menu-btn" onclick="showPage('clear')">🗑️ Limpiar Tramo</button>
-            <button class="menu-btn" onclick="exitApp()">🚪 Salir</button>
-        </div>
-
-        <div class="content">
-            <!-- CREAR TRAMO -->
-            <div id="create" class="page active">
-                <h1 class="page-title">ARMADO HOJA DE RUTA</h1>
-
-                <div class="section">
-                    <div class="section-title">1. Seleccionar Localidad de Origen</div>
-                    <div class="form-group">
-                        <label for="originCity">Localidad de Origen:</label>
-                        <select id="originCity" onchange="updateDestinyCities()">
-                            <option value="">-- Selecciona una localidad --</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">2. Agregar Localidades al Tramo</div>
-                    <div class="form-group">
-                        <label for="destinyCity">Siguiente Localidad:</label>
-                        <select id="destinyCity">
-                            <option value="">-- Selecciona una localidad --</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" onclick="addCityToRoute()">➕ Agregar Localidad</button>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">3. Ruta Actual</div>
-                    <ul id="routeList" class="route-list"></ul>
-                    <div id="emptyRoute" class="alert alert-info">
-                        No hay localidades agregadas aún. Comienza seleccionando una localidad de origen.
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">4. Opciones</div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="roundTrip" onchange="updateRoundTrip()">
-                        <label for="roundTrip" style="margin: 0; cursor: pointer;">🔄 Round-Trip (Regreso al origen)</label>
-                    </div>
-                </div>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <div class="menu-title">CEVA LOGISTICS</div>
+                <button class="menu-btn active" onclick="showPage('create')">✏️ Crear Tramo</button>
+                <button class="menu-btn" onclick="showPage('calculate')">📊 Calcular Tramo</button>
+                <button class="menu-btn" onclick="showPage('modify')">🔧 Modificar Tramo</button>
+                <button class="menu-btn" onclick="showPage('clear')">🗑️ Limpiar Tramo</button>
+                <button class="menu-btn" onclick="exitApp()">🚪 Salir</button>
             </div>
 
-            <!-- CALCULAR TRAMO -->
-            <div id="calculate" class="page">
-                <h1 class="page-title">Calcular Tramo</h1>
+            <div class="content">
+                <!-- CREAR TRAMO -->
+                <div id="create" class="page active">
+                    <h1 class="page-title">ARMADO HOJA DE RUTA</h1>
 
-                <div id="noDataCalc" class="alert alert-warning">
-                    ⚠️ No hay ningún tramo creado. Por favor, crea un tramo en la sección "Crear Tramo".
-                </div>
-
-                <div id="calcResults" style="display:none;">
-                    <div class="summary-card">
-                        <div class="summary-item">
-                            <div class="summary-label">Kilómetros Totales</div>
-                            <div class="summary-value" id="totalKms">0 km</div>
+                    <div class="section">
+                        <div class="section-title">1. Seleccionar Localidad de Origen</div>
+                        <div class="form-group">
+                            <label for="originCity">Localidad de Origen:</label>
+                            <select id="originCity" onchange="updateDestinyCities()">
+                            <option value="">-- Selecciona una localidad --</option>
+                        </select>
                         </div>
                     </div>
 
                     <div class="section">
-                        <div class="section-title">Detalles por Tramo</div>
-                        <div id="detailsGrid" class="results-grid"></div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Ruta Completa</div>
-                        <div id="fullRouteDetails"></div>
-                    </div>
-
-                    <div class="button-group">
-                        <button class="btn btn-secondary" onclick="showPage('create')">← Volver</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MODIFICAR TRAMO -->
-            <div id="modify" class="page">
-                <h1 class="page-title">Modificar Tramo</h1>
-
-                <div id="noDataModify" class="alert alert-warning">
-                    ⚠️ No hay ningún tramo creado. Por favor, crea un tramo en la sección "Crear Tramo".
-                </div>
-
-                <div id="modifyContent" style="display:none;">
-                    <div class="section">
-                        <div class="section-title">Reordenar Localidades</div>
-                        <ul id="modifyList" class="route-list"></ul>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Agregar Nueva Localidad</div>
+                        <div class="section-title">2. Agregar Localidades al Tramo</div>
                         <div class="form-group">
-                            <label for="modifyNewCity">Selecciona una localidad:</label>
-                            <select id="modifyNewCity">
+                            <label for="destinyCity">Siguiente Localidad:</label>
+                            <select id="destinyCity">
+                            <option value="">-- Selecciona una localidad --</option>
+                        </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="addCityToRoute()">➕ Agregar Localidad</button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">3. Ruta Actual</div>
+                        <ul id="routeList" class="route-list"></ul>
+                        <div id="emptyRoute" class="alert alert-info">
+                            No hay localidades agregadas aún. Comienza seleccionando una localidad de origen.
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">4. Opciones</div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="roundTrip" onchange="updateRoundTrip()">
+                            <label for="roundTrip" style="margin: 0; cursor: pointer;">🔄 Round-Trip (Regreso al origen)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CALCULAR TRAMO -->
+                <div id="calculate" class="page">
+                    <h1 class="page-title">Calcular Tramo</h1>
+
+                    <div id="noDataCalc" class="alert alert-warning">
+                        ⚠️ No hay ningún tramo creado. Por favor, crea un tramo en la sección "Crear Tramo".
+                    </div>
+
+                    <div id="calcResults" style="display:none;">
+                        <div class="summary-card">
+                            <div class="summary-item">
+                                <div class="summary-label">Kilómetros Totales</div>
+                                <div class="summary-value" id="totalKms">0 km</div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <div class="section-title">Detalles por Tramo</div>
+                            <div id="detailsGrid" class="results-grid"></div>
+                        </div>
+
+                        <div class="section">
+                            <div class="section-title">Ruta Completa</div>
+                            <div id="fullRouteDetails"></div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-secondary" onclick="showPage('create')">← Volver</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODIFICAR TRAMO -->
+                <div id="modify" class="page">
+                    <h1 class="page-title">Modificar Tramo</h1>
+
+                    <div id="noDataModify" class="alert alert-warning">
+                        ⚠️ No hay ningún tramo creado. Por favor, crea un tramo en la sección "Crear Tramo".
+                    </div>
+
+                    <div id="modifyContent" style="display:none;">
+                        <div class="section">
+                            <div class="section-title">Reordenar Localidades</div>
+                            <ul id="modifyList" class="route-list"></ul>
+                        </div>
+
+                        <div class="section">
+                            <div class="section-title">Agregar Nueva Localidad</div>
+                            <div class="form-group">
+                                <label for="modifyNewCity">Selecciona una localidad:</label>
+                                <select id="modifyNewCity">
                                 <option value="">-- Selecciona una localidad --</option>
                             </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="addNewCityToModify()">➕ Agregar</button>
                         </div>
-                        <button class="btn btn-primary" onclick="addNewCityToModify()">➕ Agregar</button>
-                    </div>
 
-                    <div class="button-group">
-                        <button class="btn btn-secondary" onclick="showPage('create')">← Volver</button>
+                        <div class="button-group">
+                            <button class="btn btn-secondary" onclick="showPage('create')">← Volver</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- LIMPIAR TRAMO -->
-            <div id="clear" class="page">
-                <h1 class="page-title">Limpiar Tramo</h1>
+                <!-- LIMPIAR TRAMO -->
+                <div id="clear" class="page">
+                    <h1 class="page-title">Limpiar Tramo</h1>
 
-                <div class="section">
-                    <div class="alert alert-danger">
-                        ⚠️ <strong>Advertencia:</strong> Esta acción eliminará el tramo actual y no se puede deshacer.
-                    </div>
+                    <div class="section">
+                        <div class="alert alert-danger">
+                            ⚠️ <strong>Advertencia:</strong> Esta acción eliminará el tramo actual y no se puede deshacer.
+                        </div>
 
-                    <div id="noDataClear" class="alert alert-info">
-                        No hay ningún tramo creado actualmente.
-                    </div>
+                        <div id="noDataClear" class="alert alert-info">
+                            No hay ningún tramo creado actualmente.
+                        </div>
 
-                    <div id="clearContent" style="display:none;">
-                        <p style="margin-bottom: 20px;">¿Estás seguro de que deseas limpiar el tramo actual? Se eliminarán todas las localidades agregadas.</p>
-                        <div class="button-group">
-                            <button class="btn btn-danger" onclick="confirmClear()">🗑️ Sí, Limpiar Tramo</button>
-                            <button class="btn btn-secondary" onclick="showPage('create')">← Cancelar</button>
+                        <div id="clearContent" style="display:none;">
+                            <p style="margin-bottom: 20px;">¿Estás seguro de que deseas limpiar el tramo actual? Se eliminarán todas las localidades agregadas.</p>
+                            <div class="button-group">
+                                <button class="btn btn-danger" onclick="confirmClear()">🗑️ Sí, Limpiar Tramo</button>
+                                <button class="btn btn-secondary" onclick="showPage('create')">← Cancelar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="app.js"></script>
-</body>
-
-</html>
+        <script src="app.js"></script>
+    </body>
