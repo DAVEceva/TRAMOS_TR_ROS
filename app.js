@@ -193,6 +193,7 @@ const tramos = [
     { ciudad1: "ROSARIO", ciudad2: "SANTA TERESA", kms: 59 },
     { ciudad1: "ROSARIO", ciudad2: "PARANA", kms: 187 },
     { ciudad1: "ROSARIO", ciudad2: "CASILDA", kms: 48 },
+    { ciudad1: "ROSARIO", ciudad2: "SANTA ROSA", kms: 619 },
     { ciudad1: "ROSARIO", ciudad2: "CONCORDIA", kms: 360 },
     { ciudad1: "ROSARIO", ciudad2: "TOTORAS", kms: 67 },
     { ciudad1: "ROSARIO", ciudad2: "CARLOS PELLEGRINI", kms: 180 },
@@ -280,6 +281,10 @@ const tramos = [
     { ciudad1: "SANTO TOME", ciudad2: "GALVEZ", kms: 76 },
     { ciudad1: "SANTO TOME", ciudad2: "RESISTENCIA", kms: 552 },
     { ciudad1: "SANTO TOME", ciudad2: "CHARATA", kms: 601 },
+    { ciudad1: "SANTA ROSA", ciudad2: "ROSARIO", kms: 619 },
+    { ciudad1: "SANTA ROSA", ciudad2: "GENERAL PICO", kms: 141 },
+    { ciudad1: "SANTA ROSA", ciudad2: "GENERAL VILLEGAS", kms: 218 },
+    { ciudad1: "SANTA ROSA", ciudad2: "REALICO", kms: 179 },
     { ciudad1: "TOTORAS", ciudad2: "RAFAELA", kms: 168 },
     { ciudad1: "TOTORAS", ciudad2: "CAÑADA DE GOMEZ", kms: 43 },
     { ciudad1: "TOTORAS", ciudad2: "VILLA CAÑAS", kms: 248 },
@@ -756,4 +761,5 @@ if ('serviceWorker' in navigator) {
 // =======================
 // 13) Arranque
 // =======================
+
 document.addEventListener('DOMContentLoaded', initApp);
