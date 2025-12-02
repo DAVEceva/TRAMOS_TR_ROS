@@ -208,6 +208,7 @@ const tramos = [
     { ciudad1: "ROSARIO", ciudad2: "GENERAL VILLEGAS", kms: 357 },
     { ciudad1: "ROSARIO", ciudad2: "REALICO", kms: 477 },
     { ciudad1: "ROSARIO", ciudad2: "ROQUE SAENZ PEÑA", kms: 822 },
+    { ciudad1: "ROSARIO", ciudad2: "GENERAL PICO", kms: 485 },
     { ciudad1: "ROSARIO", ciudad2: "RESISTENCIA", kms: 712 },
     { ciudad1: "ROSARIO", ciudad2: "FIRMAT", kms: 110 },
     { ciudad1: "ROSARIO", ciudad2: "SAN JUSTO", kms: 269 },
@@ -763,3 +764,4 @@ if ('serviceWorker' in navigator) {
 // =======================
 
 document.addEventListener('DOMContentLoaded', initApp);
+
